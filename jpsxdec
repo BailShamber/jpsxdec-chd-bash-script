@@ -1,5 +1,5 @@
 #!/bin/bash
-jpsxdecPATH="insert path to the jpsxdec jar file here"
+jpsxdecPATH="insert the path to the jpsxdec jar file here."
 realpath "$1" &> /dev/null && file="$(realpath "$1")"
 cd "$jpsxdecPATH"
 
