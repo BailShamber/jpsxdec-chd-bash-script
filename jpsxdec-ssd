@@ -1,0 +1,30 @@
+#!/bin/bash
+jpsxdecPATH="insert the path to the jpsxdec jar file here."
+realpath "$1" &> /dev/null && file="$(realpath "$1")"
+cd "$jpsxdecPATH"
+
+if [ -z ${file+x} ]; then
+	java -jar jpsxdec.jar
+	exit
+fi
+
+if [ ${file: -4} == ".chd" ]; then
+	tmpdir="/run/user/$(id -u)/jpsxdec"$$""
+	mkdir "$tmpdir"
+	tmp="$tmpdir/$(basename "$file".cue)"
+
+	#Traps ctrl+C
+	trap ctrl_c INT
+
+	function ctrl_c() {
+		rm -r "$tmpdir"
+		exit
+	}
+
+	chdman extractcd -i "$file" -o "$tmp"
+	java -jar jpsxdec.jar "${tmp%.*}".bin
+	rm -r "$tmpdir"
+else
+	java -jar jpsxdec.jar "$file"
+fi
+
