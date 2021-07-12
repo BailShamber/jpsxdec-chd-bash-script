@@ -5,4 +5,5 @@
 It works by converting the .chd image to bin/cue in the "/tmp" directory first then loading the bin file.
 
 "jpsxdec-ssd" is an ssd (solid state drive) friendly version, it loads the image to ram instead of temp dir (in most linux distros).
+
 **warning** "jpsxdec-ssd" needs alot of ram to work, 6gb recommended.
